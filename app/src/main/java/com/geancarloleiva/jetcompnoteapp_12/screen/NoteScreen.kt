@@ -38,12 +38,12 @@ fun NoteScreen(
         TopBarApp()
 
         //Form
-        NoteForm()
+        NoteForm(onAddNote)
 
         Divider(modifier = Modifier.padding(10.dp))
 
         //List
-        NoteList(lstNote)
+        NoteList(lstNote, onRemoveNote)
     }
 }
 
@@ -62,7 +62,10 @@ fun TopBarApp() {
 }
 
 @Composable
-fun NoteForm(context: Context = LocalContext.current) {
+fun NoteForm(
+    onAddNote: (Note) -> Unit,
+    context: Context = LocalContext.current
+) {
     var title by remember {
         mutableStateOf("")
     }
@@ -106,10 +109,21 @@ fun NoteForm(context: Context = LocalContext.current) {
             text = stringResource(id = R.string.btn_create),
             enabled = btnEnable,
             onClick = {
+                //Calling the adding method (inherited from parent)
+                onAddNote(
+                    Note(title = title, detail = detail)
+                )
+
+                //Showing a message
                 Toast.makeText(
-                    context, "Click",
+                    context, "Note created",
                     Toast.LENGTH_SHORT
                 ).show()
+
+                //Cleaning form
+                title = ""
+                detail = ""
+                btnEnable = false
             })
     }
 }
@@ -120,12 +134,18 @@ fun validateForm(title: String, detail: String): Boolean {
 }
 
 @Composable
-fun NoteList(lstNote: List<Note>) {
+fun NoteList(
+    lstNote: List<Note>,
+    onRemoveNote: (Note) -> Unit
+) {
     LazyColumn {
         items(lstNote) { note ->
             NoteRow(
                 note = note,
-                onNoteClicked = {})
+                onNoteClicked = {
+                    //Calling the remove method (inherited from parent)
+                    onRemoveNote(note)
+                })
         }
     }
 }
@@ -146,7 +166,9 @@ fun NoteRow(
         elevation = 6.dp
     ) {
         Column(modifier = modifier
-            .clickable { }
+            .clickable {
+                onNoteClicked(note)
+            }
             .padding(horizontal = 14.dp, vertical = 6.dp),
             horizontalAlignment = Alignment.Start) {
             //Title
