@@ -19,7 +19,9 @@ import com.geancarloleiva.jetcompnoteapp_12.model.Note
 import com.geancarloleiva.jetcompnoteapp_12.screen.NoteScreen
 import com.geancarloleiva.jetcompnoteapp_12.ui.theme.JetCompNoteApp_12Theme
 import com.geancarloleiva.jetcompnoteapp_12.viewmodel.NoteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint //Identifies this class as dependency container
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
