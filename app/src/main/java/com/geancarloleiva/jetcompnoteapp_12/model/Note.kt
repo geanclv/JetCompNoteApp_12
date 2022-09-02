@@ -3,7 +3,7 @@ package com.geancarloleiva.jetcompnoteapp_12.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.Instant
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity(tableName = "tbl_note") //Creates a table in SQLite
@@ -14,6 +14,6 @@ data class Note(
     val title: String,
     @ColumnInfo(name = "note_detail")
     val detail: String,
-    @ColumnInfo
-    val entryDate: Date = Date.from(Instant.now())
+    @ColumnInfo(name = "entry_date", defaultValue = "(datetime('now'))")
+    val entryDate: String = LocalDateTime.now().toString()
 )

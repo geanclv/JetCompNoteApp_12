@@ -182,11 +182,11 @@ fun NoteRow(
                 style = MaterialTheme.typography.subtitle1
             )
             //Entry date
-            Text(
+            /*Text(
                 text = note.entryDate
                     .format(DateTimeFormatter.ofPattern(datePattern)),
                 style = MaterialTheme.typography.caption
-            )
+            )*/
         }
     }
 }
