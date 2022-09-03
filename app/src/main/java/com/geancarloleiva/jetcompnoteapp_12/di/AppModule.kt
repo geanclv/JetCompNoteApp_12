@@ -19,7 +19,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideNotesDao(noteDatabase: NoteDatabase): NoteDatabaseDao {
-        return noteDatabase.noteDato()
+        return noteDatabase.noteDao()
     }
 
     @Singleton
