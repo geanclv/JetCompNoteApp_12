@@ -3,6 +3,7 @@ package com.geancarloleiva.jetcompnoteapp_12.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.Instant
 import java.time.LocalDateTime
 import java.util.*
 
@@ -15,5 +16,6 @@ data class Note(
     @ColumnInfo(name = "note_detail")
     val detail: String,
     @ColumnInfo(name = "entry_date", defaultValue = "(datetime('now'))")
-    val entryDate: String = LocalDateTime.now().toString()
+    val entryDate: Date = Date.from(Instant.now())
+    //val entryDate: String = LocalDateTime.now().toString() //not needed because the Date was fixed with the TypeConverter
 )

@@ -25,6 +25,7 @@ import com.geancarloleiva.jetcompnoteapp_12.R
 import com.geancarloleiva.jetcompnoteapp_12.components.NoteButton
 import com.geancarloleiva.jetcompnoteapp_12.components.NoteInputText
 import com.geancarloleiva.jetcompnoteapp_12.model.Note
+import com.geancarloleiva.jetcompnoteapp_12.util.formatDate
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -156,7 +157,7 @@ fun NoteRow(
     note: Note,
     onNoteClicked: (Note) -> Unit
 ) {
-    val datePattern = "EEE, d MMM"
+    //val datePattern = "EEE, d MMM"
     Surface(
         modifier = modifier
             .padding(4.dp)
@@ -182,11 +183,12 @@ fun NoteRow(
                 style = MaterialTheme.typography.subtitle1
             )
             //Entry date
-            /*Text(
-                text = note.entryDate
-                    .format(DateTimeFormatter.ofPattern(datePattern)),
+            Text(
+                text = formatDate(note.entryDate.time),
+                /*text = note.entryDate
+                    .format(DateTimeFormatter.ofPattern(datePattern)),*/
                 style = MaterialTheme.typography.caption
-            )*/
+            )
         }
     }
 }
