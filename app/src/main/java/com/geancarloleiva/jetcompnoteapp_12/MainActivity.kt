@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -32,7 +33,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val noteViewModel: NoteViewModel by viewModels()
+                    //two ways to instantiate noteViewModel
+                    val noteViewModel = viewModel<NoteViewModel>() //way 1
+                    //val noteViewModel: NoteViewModel by viewModels() // way 2
                     NotesApp(noteViewModel)
                 }
             }
@@ -41,8 +44,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NotesApp(noteViewModel: NoteViewModel = viewModel()){
-    val lstNote = noteViewModel.getAllNotes()
+fun NotesApp(noteViewModel: NoteViewModel){
+    //we are getting data from Flow (in ViewModel), so we need to collect it AsState (stateful)
+    val lstNote = noteViewModel.lstNote.collectAsState().value
 
     NoteScreen(
         lstNote = lstNote,
